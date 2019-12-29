@@ -1,10 +1,12 @@
 const JobbankQueryBuilder = require("../lib/query/jobbank_query_builder");
-const JobbankSearchCrawler = require("../lib/crawl/jobbank_search_crawler");
+const crawl = require("../lib/crawl/jobbank_search_crawler");
 
 jbUrl = new JobbankQueryBuilder().location('Alberta').term('designer').build();
 
-console.log(jbUrl);
-
-crawler = new JobbankSearchCrawler();
-res = crawler.crawl(jbUrl);
-console.log(res);
+crawl(jbUrl)
+.then(function(urls){
+  console.log("Found urls: ", urls);
+})
+.catch(function (error){
+  console.log("Error: ",  error);
+});
